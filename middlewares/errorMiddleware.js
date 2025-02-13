@@ -1,4 +1,4 @@
 module.exports = (err, req, res, next) => {
-  console.log(err);
-  res.status(500).json({ error: err.message });
+  const statusCode = err.statusCode || 500
+  res.status(statusCode).json({ error: err.message || "Resouce Internal Server" });
 };

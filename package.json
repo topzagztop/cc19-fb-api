@@ -1,0 +1,17 @@
+{
+  "name": "cc19-fb-api",
+  "version": "1.0.0",
+  "description": "Create Api node server facebook project by express.js ## Step 1 Create file Server.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

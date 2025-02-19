@@ -96,16 +96,18 @@ module.exports.login = tryCatch(async (req, res, next) => {
     expiresIn: "30d",
   });
 
+  const {password: pw, createdAt, updatedAt, ...userData } = foundUser
+
   res.json({
     msg: "Login successful",
-    user: foundUser,
+    user: userData,
     token: token,
   });
 });
 
 module.exports.getMe = (req, res, next) => {
   try {
-    res.json({ msg: "Get Me..." });
+    res.json({ user: req.user });
   } catch (error) {
     next(error);
   }

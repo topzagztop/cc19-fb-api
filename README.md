@@ -322,7 +322,72 @@ module.exports.getMe = (req, res) => {
 };
 
 ```
+### prisma
+prisma/resetDB.js
+```js
+require("dotenv").config()
+const prisma = require("../models")
 
+// beware order of table to delete
+async function resetDatabase() {
+    await prisma.$transaction([
+        prisma.comment.deleteMany(),
+        prisma.like.deleteMany(),
+        prisma.post.deleteMany(),
+        prisma.relationship.deleteMany(),
+        prisma.user.deleteMany(),
+    ])
+}
+
+console.log("Reset DB...")
+resetDatabase()
+```
+prisma/seed.js
+```js
+const prisma = require("../models");
+const bcrypt = require("bcryptjs");
+
+const hashedPassword = bcrypt.hashSync("123456", 10);
+
+const userData = [
+  {
+    firstName: "Andy",
+    lastName: "Codecamp",
+    email: "andy@ggg.mail",
+    password: hashedPassword,
+  },
+  {
+    firstName: "Bobby",
+    lastName: "Codecamp",
+    email: "bobby@ggg.mail",
+    password: hashedPassword,
+  },
+  {
+    firstName: "Candy",
+    lastName: "Codecamp",
+    mobile: "1111111111",
+    password: hashedPassword,
+  },
+  {
+    firstName: "Danny",
+    lastName: "Codecamp",
+    mobile: "2222222222",
+    password: hashedPassword,
+  },
+];
+
+console.log("DB seed...");
+
+async function seedDB() {
+  await prisma.user.createMany({ data: userData });
+}
+
+seedDB()
+
+```
+```bash
+npx prisma db seed
+```
 
 
 

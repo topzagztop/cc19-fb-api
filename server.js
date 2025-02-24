@@ -8,7 +8,9 @@ const notFound = require("./middlewares/notFound");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 const authRoute = require("./routes/auth-routes");
 const postRoute = require("./routes/post-routes");
+const commentRoute = require("./routes/comment-routes");
 const authenticate = require("./middlewares/authenticate");
+const likeRoute = require("./routes/like-route");
 const app = express();
 
 // app.use(cors({
@@ -22,9 +24,8 @@ app.use(express.json())
 
 app.use("/post", authenticate, postRoute);
 app.use("/auth", authRoute);
-app.use("/post", (req, res) => {res.send("post service")});
-app.use("/comment", (req, res) => {res.send("comment service")});
-app.use("/like", (req, res) => {res.send("like service")});
+app.use("/comment", authenticate, commentRoute);
+app.use("/like", authenticate, likeRoute);
 
 // notFound
 app.use( notFound );
